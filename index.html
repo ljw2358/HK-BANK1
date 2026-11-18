@@ -3,69 +3,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HK Internet Bank - Next-Gen Web3 Digital Banking</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>HK-BANK Web3 Digital Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#0B0813',
+                            card: '#161224',
+                            cardHover: '#1F1A33',
+                            purple: '#6C2BD9',
+                            purpleLight: '#8B5CF6',
+                            neonYellow: '#FACC15',
+                            neonGreen: '#10B981',
+                            neonBlue: '#3B82F6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #0b0216; color: #f3e8ff; }
-        .neon-glow { box-shadow: 0 0 25px rgba(168, 85, 247, 0.35); }
-        .neon-border { border: 1px solid rgba(168, 85, 247, 0.45); }
-        .neon-border-glow { border: 1px solid rgba(168, 85, 247, 0.7); box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.2); }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0b0216; }
-        ::-webkit-scrollbar-thumb { background: #2b104a; border-radius: 4px; border: 1px solid rgba(168, 85, 247, 0.3); }
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; background-color: #0B0813; color: #FFFFFF; }
+        .glass-panel { background: rgba(22, 18, 36, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(139, 92, 246, 0.2); }
+        .glow-effect { box-shadow: 0 0 20px rgba(250, 204, 21, 0.25); }
+        .glow-purple { box-shadow: 0 0 25px rgba(108, 43, 217, 0.4); }
+        .tab-active { background: #6C2BD9; color: #FACC15; font-weight: bold; border-bottom: 2px solid #FACC15; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0B0813; }
+        ::-webkit-scrollbar-thumb { background: #6C2BD9; border-radius: 3px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- BANK HEADER -->
-    <header class="w-full bg-[#150726]/95 backdrop-blur-md border-b border-purple-900/60 sticky top-0 z-50 px-4 py-3.5 flex flex-wrap justify-between items-center shadow-xl">
-        <div class="flex items-center space-x-3">
-            <div class="w-3.5 h-3.5 bg-emerald-400 rounded-full animate-ping"></div>
-            <h1 class="text-xl font-black tracking-wider bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
-                HK INTERNET BANK <span class="text-xs text-purple-300 font-normal">v3.0 Secure Core</span>
-            </h1>
-        </div>
-        <nav class="hidden md:flex items-center space-x-2 text-sm">
-            <a href="#my-account" class="px-3 py-1.5 hover:text-purple-300 hover:bg-purple-900/40 rounded-xl transition">내 계좌</a>
-            <a href="#transfer" class="px-3 py-1.5 hover:text-purple-300 hover:bg-purple-900/40 rounded-xl transition">간편송금</a>
-            <a href="#products" class="px-3 py-1.5 hover:text-purple-300 hover:bg-purple-900/40 rounded-xl transition">예·적금</a>
-            <a href="#ai-support" class="px-3 py-1.5 hover:text-purple-300 hover:bg-purple-900/40 rounded-xl transition">AGI 삐니 상담</a>
-        </nav>
-        <div class="flex items-center space-x-3 text-xs">
-            <span class="px-3 py-1.5 bg-[#2b104a] rounded-xl neon-border font-mono">회장: <strong class="text-white">이재완(혜공)</strong></span>
-            <span class="px-3 py-1.5 bg-purple-950 text-pink-400 rounded-xl neon-border font-mono">추천 ID: ljw2358</span>
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-purple-900/40 px-4 py-3">
+        <div class="max-w-md mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-700 to-yellow-400 flex items-center justify-center font-black text-black text-xl shadow-lg">HK</div>
+                <span class="text-xl font-bold bg-gradient-to-r from-yellow-400 via-purple-300 to-yellow-200 bg-clip-text text-transparent">HK-BANK</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="switchTab('wallet')" class="text-xs bg-purple-900/50 hover:bg-purple-800 text-yellow-400 border border-purple-500/30 px-3 py-1.5 rounded-full flex items-center gap-1 transition">
+                    <i class="fas fa-wallet"></i> <span id="wallet-status">지갑 연결</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-grow container mx-auto px-4 py-8 space-y-8 max-w-5xl">
-        
-        <!-- SECTION 1: MY ACCOUNT DASHBOARD -->
-        <section id="my-account" class="w-full bg-[#150726] neon-border rounded-3xl p-6 sm:p-8 neon-glow relative overflow-hidden">
-            <div class="absolute -right-16 -top-16 w-56 h-56 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                <div>
-                    <span class="text-xs font-mono px-3 py-1 bg-purple-950 text-purple-300 rounded-full border border-purple-800">HK BANK PRIMARY ACCOUNT</span>
-                    <h2 class="text-2xl sm:text-3xl font-black mt-2 text-white">이재완 회장님 자산 대시보드</h2>
-                </div>
-                <div class="text-right">
-                    <span class="text-xs text-emerald-400 font-mono block">● 실시간 연동 완료</span>
-                    <span class="text-xs text-purple-400 font-mono">계좌번호: 2026-0520-7777</span>
+    <!-- Main Container -->
+    <main class="max-w-md mx-auto w-full px-4 py-5 flex-1 space-y-6">
+
+        <!-- Banner Card -->
+        <section class="glass-panel rounded-2xl p-5 border border-yellow-500/30 glow-purple relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-purple-600/20 rounded-full blur-xl"></div>
+            <div class="flex justify-between items-start mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-yellow-400 text-black">Web3 파이오니아 특판</span>
+                <span class="text-xs text-purple-300"><i class="fas fa-shield-alt text-yellow-400"></i> KYC/KYB 인증 연동</span>
+            </div>
+            <h2 class="text-2xl font-black text-white mt-1">최고 <span class="text-yellow-400 text-3xl font-extrabold">연 20.0%</span></h2>
+            <p class="text-xs text-gray-300 mt-1">파이 개척자를 위한 HK-BANK 파격 예·적금 모듈</p>
+        </section>
+
+        <!-- Dynamic Rate Info Cards Grid -->
+        <section class="grid grid-cols-4 gap-2">
+            <div class="glass-panel p-2.5 rounded-xl text-center border border-purple-800">
+                <div class="text-[11px] text-gray-400">6개월 미만</div>
+                <div class="text-lg font-bold text-yellow-400 mt-0.5">6.0%</div>
+                <div class="text-[9px] text-purple-300">단기 거치</div>
+            </div>
+            <div class="glass-panel p-2.5 rounded-xl text-center border border-purple-600 bg-purple-900/20">
+                <div class="text-[11px] text-gray-400">1년 만기</div>
+                <div class="text-lg font-bold text-yellow-400 mt-0.5">13.0%</div>
+                <div class="text-[9px] text-purple-300">수익 극대화</div>
+            </div>
+            <div class="glass-panel p-2.5 rounded-xl text-center border border-purple-500 bg-purple-900/30">
+                <div class="text-[11px] text-gray-400">2년 만기</div>
+                <div class="text-lg font-bold text-yellow-400 mt-0.5">16.0%</div>
+                <div class="text-[9px] text-purple-300">안정 성장</div>
+            </div>
+            <div class="glass-panel p-2.5 rounded-xl text-center border border-yellow-500/60 bg-yellow-400/10 glow-effect">
+                <div class="text-[11px] text-yellow-300 font-bold">3년 만기</div>
+                <div class="text-xl font-black text-yellow-400 mt-0.5">20.0%</div>
+                <div class="text-[9px] text-yellow-200">최고 우대</div>
+            </div>
+        </section>
+
+        <!-- Deposit / Savings Calculator Section -->
+        <section class="glass-panel rounded-2xl p-5 border border-purple-700/50">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-purple-900/60">
+                <h3 class="font-bold text-base text-yellow-400 flex items-center gap-2">
+                    <i class="fas fa-calculator"></i> 이자 계산 시뮬레이터
+                </h3>
+                <div class="flex bg-purple-950 p-1 rounded-lg text-xs">
+                    <button id="type-deposit" onclick="setProductType('deposit')" class="px-3 py-1 rounded-md bg-purple-600 text-yellow-400 font-bold">정기예금</button>
+                    <button id="type-saving" onclick="setProductType('saving')" class="px-3 py-1 rounded-md text-gray-400 hover:text-white">정기적금</button>
                 </div>
             </div>
 
-            <!-- Balance Card -->
-            <div class="bg-[#0b0216] rounded-2xl p-6 neon-border-glow grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                <div class="md:col-span-2 space-y-2">
-                    <span class="text-xs text-purple-400 font-mono">총 보유 잔액 (Total Balance)</span>
-                    <div class="text-3xl sm:text-4xl font-black text-white font-mono tracking-tight flex items-center gap-3">
-                        <span>1,250,400,000</span> <span class="text-lg text-pink-400">HK-WON</span>
-                    </div>
-                    <p class="text-xs text-purple-300/70">Test Pi 연동 유동성 및 사회환원 기금 풀 실시간 반영 중</p>
+            <!-- Amount Input -->
+            <div class="space-y-2 mb-4">
+                <label class="text-xs text-gray-300 flex justify-between">
+                    <span>예치 금액 (Pi / KRW)</span>
+                    <span id="amount-display-val" class="text-yellow-400 font-bold">10,000,000 원</span>
+                </label>
+                <div class="relative">
+                    <input type="number" id="deposit-amount" value="10000000" oninput="calculateInterest()" class="w-full bg-purple-950/80 border border-purple-700 rounded-xl py-2.5 px-3 text-right text-white font-bold text-lg focus:outline-none focus:border-yellow-400 pr-12">
+                    <span class="absolute right-3 top-3 text-xs text-purple-400 font-bold">원</span>
                 </div>
-                <div class="flex flex-col gap-2.5">
-                    <button onclick="alert('입금 계좌번호가 클립보드에 복사되었습니다.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-3 rounded-xl transition shadow-lg shadow-purple-900/40">
-                        계좌 채우기 (입금)
+                <div class="grid grid-cols-4 gap-1.5 pt-1">
+                    <button onclick="addAmount(1000000)" class="text-xs bg-purple-900/40 hover:bg-purple-800 text-purple-200 py-1 rounded-lg border border-purple-700/50">+100만</button>
+                    <button onclick="addAmount(5000000)" class="text-xs bg-purple-900/40 hover:bg-purple-800 text-purple-200 py-1 rounded-lg border border-purple-700/50">+500만</button>
+                    <button onclick="addAmount(10000000)" class="text-xs bg-purple-900/40 hover:bg-purple-800 text-purple-200 py-1 rounded-lg border border-purple-700/50">+1,000만</button>
+                    <button onclick="addAmount(50000000)" class="text-xs bg-purple-900/40 hover:bg-purple-800 text-purple-200 py-1 rounded-lg border border-purple-700/50">+5,000만</button>
+                </div>
+            </div>
+
+            <!-- Period Selection -->
+            <div class="space-y-2 mb-5">
+                <label class="text-xs text-gray-300">약정 기간 선택</label>
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="setPeriod(0.5, 6.0)" id="period-6m" class="period-btn py-2 text-xs rounded-xl border border-purple-700 bg-purple-950 text-gray-300 font-medium">6개월 미만<br><span class="text-yellow-400 font-bold">6.0%</span></button>
+                    <button onclick="setPeriod(1, 13.0)" id="period-1y" class="period-btn py-2 text-xs rounded-xl border border-yellow-400 bg-purple-700 text-yellow-400 font-bold">1년<br><span>13.0%</span></button>
+                    <button onclick="setPeriod(2, 16.0)" id="period-2y" class="period-btn py-2 text-xs rounded-xl border border-purple-700 bg-purple-950 text-gray-300 font-medium">2년<br><span class="text-yellow-400 font-bold">16.0%</span></button>
+                    <button onclick="setPeriod(3, 20.0)" id="period-3y" class="period-btn py-2 text-xs rounded-xl border border-purple-700 bg-purple-950 text-gray-300 font-medium">3년<br><span class="text-yellow-400 font-bold">20.0%</span></button>
+                </div>
+            </div>
+
+            <!-- Calculation Result Box -->
+            <div class="bg-purple-950/90 rounded-xl p-4 border border-purple-800 space-y-2.5">
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>적용 연 이율</span>
+                    <span id="res-rate" class="text-yellow-400 font-bold">연 13.0%</span>
+                </div>
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>세전 총 이자</span>
+                    <span id="res-before-tax" class="text-white font-medium">1,300,000 원</span>
+                </div>
+                <div class="flex justify-between text-xs text-gray-400">
+                    <span>이자소득세 (15.4%)</span>
+                    <span id="res-tax" class="text-red-400 font-medium">-200,200 원</span>
+                </div>
+                <div class="border-t border-purple-800/80 pt-2 flex justify-between items-center">
+                    <span class="text-xs font-bold text-purple-200">만기 예상 실수령액</span>
+                    <span id="res-total" class="text-lg font-black text-yellow-400">11,099,800 원</span>
+                </div>
+            </div>
+
+            <button onclick="openApplyModal()" class="w-full mt-4 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-extrabold py-3 rounded-xl shadow-lg transition text-sm">
+                HK-BANK 상품 즉시 가입하기
+            </button>
+            <p class="text-[10px] text-gray-400 text-center mt-2">※ 중도 해지 시 약정 이율의 8.5% 중도해지 수수료가 적용됩니다.</p>
+        </section>
+
+        <!-- 10 Core Modules Grid Header -->
+        <section class="space-y-3">
+            <div class="flex justify-between items-center px-1">
+                <h3 class="font-bold text-sm text-purple-200 flex items-center gap-1.5">
+                    <i class="fas fa-cubes text-yellow-400"></i> HK WorldBank 10대 핵심 모듈
+                </h3>
+                <span class="text-[11px] text-purple-400">Web3 생태계</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+                <!-- Module 1 -->
+                <div onclick="triggerModule('지갑연결')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-wallet"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">1. 지갑연결</div>
+                        <div class="text-[10px] text-gray-400">Pi 지갑 Direct 연동</div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div onclick="triggerModule('송금')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-paper-plane"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">2. 송금</div>
+                        <div class="text-[10px] text-gray-400">실시간 글로벌 송금</div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div onclick="triggerModule('결제')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-qrcode"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">3. 결제</div>
+                        <div class="text-[10px] text-gray-400">온/오프라인 QR 결제</div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div onclick="triggerModule('예치')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-piggy-bank"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">4. 예치</div>
+                        <div class="text-[10px] text-gray-400">최고 20.0% 고금리</div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div onclick="triggerModule('보상')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-gift"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">5. 보상</div>
+                        <div class="text-[10px] text-gray-400">생태계 기여 리워드</div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div onclick="triggerModule('기본소득 (UBI)')" class="glass-panel p-3 rounded-xl border border-yellow-500/40 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3 bg-yellow-400/5">
+                    <div class="w-9 h-9 rounded-lg bg-yellow-400/20 flex items-center justify-center text-yellow-400"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-yellow-400">6. 기본소득</div>
+                        <div class="text-[10px] text-yellow-200/70">순익 30% UBI 환원</div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div onclick="triggerModule('스왑')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-sync-alt"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">7. 스왑</div>
+                        <div class="text-[10px] text-gray-400">자산 간 즉시 교환</div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div onclick="triggerModule('DEX 스왑')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-exchange-alt"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">8. DEX 스왑</div>
+                        <div class="text-[10px] text-gray-400">탈중앙화 P2P 거래</div>
+                    </div>
+                </div>
+
+                <!-- Module 9 -->
+                <div onclick="triggerModule('LP 스테이킹')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-layer-group"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">9. LP 스테이킹</div>
+                        <div class="text-[10px] text-gray-400">유동성 공급 수익</div>
+                    </div>
+                </div>
+
+                <!-- Module 10 -->
+                <div onclick="triggerModule('파이 수량 시뮬레이터')" class="glass-panel p-3 rounded-xl border border-purple-800/60 hover:border-yellow-400 cursor-pointer transition flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-purple-900/60 flex items-center justify-center text-yellow-400"><i class="fas fa-coins"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-white">10. 테스트 파이</div>
+                        <div class="text-[10px] text-gray-400">Test Pi 모의 구동</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Center Assistant Bbini -->
+        <section class="glass-panel rounded-2xl p-4 border border-purple-700/60 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-yellow-400 flex items-center justify-center font-bold text-black text-lg">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                        <span>고객센터 AGI 삐니</span>
+                        <span class="px-1.5 py-0.2 rounded text-[9px] bg-purple-900 text-yellow-400 border border-purple-600">60개 국어 지원</span>
+                    </div>
+                    <div class="text-[10px] text-gray-400">24시간 실시간 AI 금융 문의 상담</div>
+                </div>
+            </div>
+            <button onclick="alert('AGI 삐니 고객센터 서비스가 연결되었습니다.')" class="text-xs bg-purple-800 hover:bg-purple-700 text-yellow-300 font-bold px-3 py-1.5 rounded-lg border border-purple-500/40">
+                상담하기
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-purple-900/60 py-6 px-4 text-center mt-6">
+        <div class="max-w-md mx-auto space-y-3">
+            <div class="flex justify-center items-center space-x-4 text-gray-400 text-lg">
+                <a href="https://youtube.com/@Hyekong2026" target="_blank" class="hover:text-red-500 transition" title="유튜브"><i class="fab fa-youtube"></i></a>
+                <a href="https://tiktok.com/@hyekong2026" target="_blank" class="hover:text-pink-400 transition" title="틱톡"><i class="fab fa-tiktok"></i></a>
+                <a href="#" onclick="alert('HK-BANK 공식 커뮤니티 준비 중입니다.')" class="hover:text-yellow-400 transition" title="공식 채널"><i class="fas fa-globe"></i></a>
+            </div>
+            <div class="text-[11px] text-gray-400 space-y-1">
+                <p class="font-bold text-purple-300">HK WorldBank / HK-BANK Web3 Ecosystem</p>
+                <p>고객지원: <a href="mailto:support@hkworldbank.com" class="text-yellow-400 underline">support@hkworldbank.com</a></p>
+                <p class="text-[10px] text-gray-400 pt-1">© 2026 HK Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Modal -->
+    <div id="apply-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="glass-panel max-w-sm w-full rounded-2xl p-5 border border-yellow-400/40 space-y-4">
+            <div class="flex justify-between items-center border-b border-purple-800 pb-2">
+                <h4 class="font-bold text-yellow-400 text-sm">HK-BANK 예·적금 계좌 개설</h4>
+                <button onclick="closeApplyModal()" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="text-gray-300 block mb-1">신청자 성명 (KYC 명의)</label>
+                    <input type="text" id="user-name" placeholder="성명을 입력하세요" class="w-full bg-purple-950 border border-purple-700 rounded-lg p-2 text-white focus:outline-none focus:border-yellow-400">
+                </div>
+                <div class="bg-purple-950/70 p-3 rounded-lg space-y-1 text-gray-300">
+                    <div class="flex justify-between"><span>선택 상품:</span> <span id="modal-product-type" class="text-yellow-400 font-bold">정기예금</span></div>
+                    <div class="flex justify-between"><span>약정 기간:</span> <span id="modal-period" class="text-white font-bold">1년</span></div>
+                    <div class="flex justify-between"><span>적용 금리:</span> <span id="modal-rate" class="text-yellow-400 font-bold">연 13.0%</span></div>
+                    <div class="flex justify-between"><span>신청 금액:</span> <span id="modal-amount" class="text-white font-bold">10,000,000 원</span></div>
+                </div>
+                <div class="text-[10px] text-purple-300">
+                    * 미인증 사용자는 테스트 파이(Test Pi) 모드로 둘러보기만 가능합니다.
+                </div>
+            </div>
+            <button onclick="submitApplication()" class="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold py-2.5 rounded-lg text-xs transition">
+                KYC 검증 후 신청 완료
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentType = 'deposit';
+        let currentPeriodYears = 1;
+        let currentRate = 13.0;
+
+        function setProductType(type) {
+            currentType = type;
+            const depBtn = document.getElementById('type-deposit');
+            const savBtn = document.getElementById('type-saving');
+
+            if(type === 'deposit') {
+                depBtn.className = "px-3 py-1 rounded-md bg-purple-600 text-yellow-400 font-bold";
+                savBtn.className = "px-3 py-1 rounded-md text-gray-400 hover:text-white";
+            } else {
+                savBtn.className = "px-3 py-1 rounded-md bg-purple-600 text-yellow-400 font-bold";
+                depBtn.className = "px-3 py-1 rounded-md text-gray-400 hover:text-white";
+            }
+            calculateInterest();
+        }
+
+        function setPeriod(years, rate) {
+            currentPeriodYears = years;
+            currentRate = rate;
+
+            const btns = ['period-6m', 'period-1y', 'period-2y', 'period-3y'];
+            btns.forEach(id => {
+                const el = document.getElementById(id);
+                el.className = "period-btn py-2 text-xs rounded-xl border border-purple-700 bg-purple-950 text-gray-300 font-medium";
+            });
+
+            let activeId = 'period-1y';
+            if(years === 0.5) activeId = 'period-6m';
+            if(years === 2) activeId = 'period-2y';
+            if(years === 3) activeId = 'period-3y';
+
+            document.getElementById(activeId).className = "period-btn py-2 text-xs rounded-xl border border-yellow-400 bg-purple-700 text-yellow-400 font-bold shadow-lg";
+            calculateInterest();
+        }
+
+        function addAmount(val) {
+            const input = document.getElementById('deposit-amount');
+            let current = parseInt(input.value) || 0;
+            input.value = current + val;
+            calculateInterest();
+        }
+
+        function calculateInterest() {
+            const amountInput = document.getElementById('deposit-amount');
+            let principal = parseFloat(amountInput.value) || 0;
+
+            document.getElementById('amount-display-val').innerText = principal.toLocaleString() + ' 원';
+
+            let interest = 0;
+            if(currentType === 'deposit') {
+                interest = principal * (currentRate / 100) * currentPeriodYears;
+            } else {
+                // Simple installment saving interest approximation
+                const months = currentPeriodYears * 12;
+                interest = principal * (currentRate / 100) * ((months + 1) / 24);
+            }
+
+            const tax = interest * 0.154;
+            const netInterest = interest - tax;
+            const totalReturn = principal + netInterest;
+
+            document.getElementById('res-rate').innerText = '연 ' + currentRate.toFixed(1) + '%';
+            document.getElementById('res-before-tax').innerText = Math.round(interest).toLocaleString() + ' 원';
+            document.getElementById('res-tax').innerText = '-' + Math.round(tax).toLocaleString() + ' 원';
+            document.getElementById('res-total').innerText = Math.round(totalReturn).toLocaleString() + ' 원';
+        }
+
+        function triggerModule(name) {
+            alert('[' + name + '] 모듈이 선택되었습니다.\nHK WorldBank Web3 네트워크와 연동 중입니다.');
+        }
+
+        function openApplyModal() {
+            const amount = parseInt(document.getElementById('deposit-amount').value) || 0;
+            document.getElementById('modal-product-type').innerText = currentType === 'deposit' ? '정기예금' : '정기적금';
+            document.getElementById('modal-period').innerText = currentPeriodYears < 1 ? '6개월 미만' : currentPeriodYears + '년';
+            document.getElementById('modal-rate').innerText = '연 ' + currentRate.toFixed(1) + '%';
+            document.getElementById('modal-amount').innerText = amount.toLocaleString() + ' 원';
+            document.getElementById('apply-modal').classList.remove('hidden');
+        }
+
+        function closeApplyModal() {
+            document.getElementById('apply-modal').classList.add('hidden');
+        }
+
+        function submitApplication() {
+            const name = document.getElementById('user-name').value;
+            if(!name) {
+                alert('신청자 성명을 입력해 주세요.');
+                return;
+            }
+            alert(name + '님, HK-BANK 계좌 개설 신청이 정상 접수되었습니다.\nKYC verification 성공 후 고금리 혜택이 적용됩니다.');
+            closeApplyModal();
+        }
+
+        function switchTab(tabName) {
+            if(tabName === 'wallet') {
+                const status = document.getElementById('wallet-status');
+                if(status.innerText === '지갑 연결') {
+                    status.innerText = '0x71C...8F9';
+                    alert('파이 네트워크 지갑이 성공적으로 연결되었습니다.');
+                } else {
+                    status.innerText = '지갑 연결';
+                }
+            }
+        }
+
+        // Init
+        calculateInterest();
+    </script>
+</body>
+</html>
